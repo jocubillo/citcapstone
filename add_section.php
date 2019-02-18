@@ -10,8 +10,41 @@ if( $_SESSION['role'] == 'admin' ){
   $is_admin = true;
 }
 
-
 require("conn.php");
+require("libs/sections.php");
+
+$error = false;
+$error_msg = '';
+$success = false;
+$success_msg = '';
+
+if( isset($_POST['submit']) ){
+  //validate form
+  //all fields are required
+  $name = filter_var($_POST['section_name'], FILTER_SANITIZE_STRING); 
+  $year = filter_var($_POST['section_year'], FILTER_SANITIZE_STRING); 
+  $adviser = filter_var($_POST['section_adviser'], FILTER_SANITIZE_STRING); 
+  $room = filter_var($_POST['section_room'], FILTER_SANITIZE_STRING); 
+
+  $data = array(
+    'name' => $name,
+    'year' => $year,
+    'adviser' => $adviser,
+    'room' => $room
+  );
+
+  $return = add_section($conn,$data);
+  if( $return ){
+    $success = true;
+    $success_msg = 'Section successfully added.';
+  }else{
+    $error = true;
+    $error_msg = 'Unable to create section. Please try again.';
+  }
+}
+
+
+
 ?>
 
 
@@ -69,11 +102,16 @@ require("conn.php");
         if( $error ){
           echo '<div class="alert alert-danger">'.$error_msg.'</div><br/>';
         }
+        if( $success ){
+          echo '<div class="alert alert-success">'.$success_msg.'</div><br/>';
+        }
       ?>
 
-      <input type="text" name="" placeholder="" class="input-block-level" /> <br/>
-      <input type="text" name="" placeholder="" class="input-block-level"/> <br/>
-      <input type="submit" name="submit" value="Login" class="btn btn-large btn-primary" />
+      <input type="text" name="section_name" required placeholder="Name" class="input-block-level" /> <br/>
+      <input type="text" name="section_year" required placeholder="Year" class="input-block-level"/> <br/>
+      <input type="text" name="section_adviser" required placeholder="Adviser" class="input-block-level"/> <br/>
+      <input type="text" name="section_room" required placeholder="Room Number" class="input-block-level"/> <br/>
+      <input type="submit" name="submit" value="Submit" class="btn btn-large btn-primary" />
     </form>
 
 
@@ -83,6 +121,10 @@ require("conn.php");
 </html>
 
 <?php
+if( !$is_admin ){
+  header("Location: dashboard.php");
+  exit();
+}
 if( !$logged_in )
   header("Location: index.php");
   exit();

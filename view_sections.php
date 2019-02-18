@@ -12,6 +12,8 @@ if( $_SESSION['role'] == 'admin' ){
 
 
 require("conn.php");
+require("libs/sections.php");
+$sections = get_sections($conn);
 ?>
 
 
@@ -33,6 +35,38 @@ require("conn.php");
   <?php include('header.php');?>
 
   <h2>View Section</h2>
+  <div class="container">
+    
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Year</th>
+          <th scope="col">Adviser</th>
+          <th scope="col">Room Number</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php 
+          if( !empty($sections) ){
+            foreach ($sections as $section) {
+              echo '<tr>';
+              echo    '<td>'.$section['id'].'</td>';
+              echo    '<td>'.$section['name'].'</td>';
+              echo    '<td>'.$section['year'].'</td>';
+              echo    '<td>'.$section['adviser'].'</td>';
+              echo    '<td>'.$section['room_number'].'</td>';
+              echo    '<td><a href="edit_section.php?id='.$section['id'].'">edit</a> | <a href="delete_section.php?id='.$section['id'].'">delete</a></td>';
+              echo '</tr>';
+            }
+          }
+        ?>
+      </tbody>
+    </table>
+
+  </div>
 
 
   <script type="text/javascript" src="js/jquery.js"></script>
@@ -41,6 +75,10 @@ require("conn.php");
 </html>
 
 <?php
+if( !$is_admin ){
+  header("Location: dashboard.php");
+  exit();
+}
 if( !$logged_in )
   header("Location: index.php");
   exit();

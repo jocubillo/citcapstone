@@ -20,7 +20,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administration <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         	<li class="nav-header">Sections</li>
-                        	<li><a href="view_sections.php">View Section</a></li>
+                        	<li><a href="view_sections.php">View Sections</a></li>
 							<li><a href="add_section.php">Create Section</a></li>
 							<li class="divider"></li>
 							<li class="nav-header">Users</li>

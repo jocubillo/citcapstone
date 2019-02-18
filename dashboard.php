@@ -36,6 +36,8 @@ $sections = get_sections($conn);
 
 	<?php include('header.php');?>
 
+	<h2>Dashboard</h2>
+
 	<div class="tabbable"> <!-- Only required for left/right tabs -->
 		<ul class="nav nav-tabs">
 			<?php 
