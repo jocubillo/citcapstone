@@ -1,25 +1,5 @@
 <?php
-
-/*
-* how login process should work
-* modify this to suit your needs
-*/
-
-
-//setup db connection
-$db_user = '';
-$db_pass = '';
-$db_name = 'test';
-$host = 'localhost';
-$error = false;
-$error_msg = '';
-
-$conn = new mysqli($host, $db_user, $db_pass, $db_name);
-if( mysqli_connect_error() ){
-	die(' Error Connecting to database ' . mysqli_connect_errno() . ' - ' . mysqli_connect_error() );
-}else{
-	//echo 'ok';
-}
+require("conn.php");
 
 //process form submission
 if( isset($_POST['submit']) ){
@@ -41,6 +21,7 @@ if( isset($_POST['submit']) ){
 			$_SESSION['user_id'] = $user_data['id'];
 			$_SESSION['user_name'] = $user_data['username'];
 			$_SESSION['user_email'] = $user_data['email'];
+      $_SESSION['role'] = $user_data['role'];
 
 			header("Location: dashboard.php");
 			exit(); //always do exit() when redirecting to another page
