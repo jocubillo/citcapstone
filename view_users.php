@@ -12,15 +12,15 @@ if( $_SESSION['role'] == 'admin' ){
 
 
 require("conn.php");
-require("libs/sections.php");
-$sections = get_sections($conn);
+require("libs/users.php");
+$users = get_users($conn);
 ?>
 
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Admin - View Sections | CIT Capstone Project</title>
+  <title>Admin - View Users | CIT Capstone Project</title>
   <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -34,31 +34,29 @@ $sections = get_sections($conn);
 
   <?php include('header.php');?>
 
-  <h2>View Sections</h2>
+  <h2>View Users</h2>
   <div class="container">
     
     <table class="table table-striped">
       <thead>
         <tr>
           <th scope="col">ID</th>
-          <th scope="col">Name</th>
-          <th scope="col">Year</th>
-          <th scope="col">Adviser</th>
-          <th scope="col">Room Number</th>
+          <th scope="col">Username</th>
+          <th scope="col">Email</th>
+          <th scope="col">Role</th>
           <th>&nbsp;</th>
         </tr>
       </thead>
       <tbody>
         <?php 
-          if( !empty($sections) ){
-            foreach ($sections as $section) {
+          if( !empty($users) ){
+            foreach ($users as $user) {
               echo '<tr>';
-              echo    '<td>'.$section['id'].'</td>';
-              echo    '<td>'.$section['name'].'</td>';
-              echo    '<td>'.$section['year'].'</td>';
-              echo    '<td>'.$section['adviser'].'</td>';
-              echo    '<td>'.$section['room_number'].'</td>';
-              echo    '<td><a href="edit_section.php?id='.$section['id'].'">edit</a> | <a href="delete_section.php?id='.$section['id'].'">delete</a></td>';
+              echo    '<td>'.$user['id'].'</td>';
+              echo    '<td>'.$user['username'].'</td>';
+              echo    '<td>'.$user['email'].'</td>';
+              echo    '<td>'.$user['role'].'</td>';
+              echo    '<td><a href="edit_user.php?id='.$user['id'].'">edit</a> | <a href="delete_user.php?id='.$user['id'].'">delete</a></td>';
               echo '</tr>';
             }
           }

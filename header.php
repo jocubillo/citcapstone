@@ -24,8 +24,8 @@
 							<li><a href="add_section.php">Create Section</a></li>
 							<li class="divider"></li>
 							<li class="nav-header">Users</li>
-							<li><a href="#">View Users</a></li>
-							<li><a href="#">Add User</a></li>
+							<li><a href="view_users.php">View Users</a></li>
+							<li><a href="add_user.php">Add User</a></li>
                         </ul>
                       </li>
                   	<?php endif;?>
